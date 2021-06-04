@@ -2427,7 +2427,7 @@ struct _Task_impl : public _Task_impl_base
     virtual bool _CancelAndRunContinuations(bool _SynchronousCancel,
                                             bool _UserException,
                                             bool _PropagatedFromAncestor,
-                                            const std::shared_ptr<_ExceptionHolder>& _ExceptionHolder_arg)
+                                            const std::shared_ptr<_ExceptionHolder>& _ExceptionHolder_arg) override
     {
         bool _RunContinuations = false;
         {
@@ -2514,7 +2514,7 @@ struct _Task_impl : public _Task_impl_base
             if (_M_Continuations)
             {
                 // Scheduling cancellation with automatic inlining.
-                _ScheduleFuncWithAutoInline([=]() { _RunTaskContinuations(); }, details::_DefaultAutoInline);
+                _ScheduleFuncWithAutoInline([=, this]() { _RunTaskContinuations(); }, details::_DefaultAutoInline);
             }
         }
         return true;

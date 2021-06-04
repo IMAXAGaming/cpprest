@@ -26,7 +26,7 @@ namespace details
 {
 struct uri_components
 {
-    uri_components() : m_path(_XPLATSTR("/")), m_port(-1) {}
+    uri_components() : m_path(_XPLATSTR("/")), m_port(-1) { }
 
     uri_components(const uri_components&) = default;
     uri_components& operator=(const uri_components&) = default;
@@ -76,11 +76,11 @@ struct uri_components
 class uri_exception : public std::exception
 {
 public:
-    uri_exception(std::string msg) : m_msg(std::move(msg)) {}
+    uri_exception(std::string msg) : m_msg(std::move(msg)) { }
 
-    ~uri_exception() CPPREST_NOEXCEPT {}
+    ~uri_exception() CPPREST_NOEXCEPT { }
 
-    const char* what() const CPPREST_NOEXCEPT { return m_msg.c_str(); }
+    const char* what() const CPPREST_NOEXCEPT override { return m_msg.c_str(); }
 
 private:
     std::string m_msg;
@@ -187,7 +187,7 @@ public:
     /// <summary>
     /// Creates an empty uri
     /// </summary>
-    uri() : m_uri(_XPLATSTR("/")) {}
+    uri() : m_uri(_XPLATSTR("/")) { }
 
     /// <summary>
     /// Creates a URI from the given encoded string. This will throw an exception if the string
@@ -217,7 +217,7 @@ public:
     /// Move constructor.
     /// </summary>
     // This is for VS2013 compatibility -- replace with '= default' when VS2013 is completely dropped.
-    uri(uri&& other) CPPREST_NOEXCEPT : m_uri(std::move(other.m_uri)), m_components(std::move(other.m_components)) {}
+    uri(uri&& other) CPPREST_NOEXCEPT : m_uri(std::move(other.m_uri)), m_components(std::move(other.m_components)) { }
 
     /// <summary>
     /// Move assignment operator

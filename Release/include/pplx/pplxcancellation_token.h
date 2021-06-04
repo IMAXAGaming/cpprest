@@ -54,17 +54,17 @@ public:
     ///     A descriptive message of the error.
     /// </param>
     /**/
-    explicit task_canceled(_In_z_ const char* _Message) throw() : _message(_Message) {}
+    explicit task_canceled(_In_z_ const char* _Message) throw() : _message(_Message) { }
 
     /// <summary>
     ///     Constructs a <c>task_canceled</c> object.
     /// </summary>
     /**/
-    task_canceled() throw() : exception() {}
+    task_canceled() throw() : exception() { }
 
-    ~task_canceled() throw() {}
+    ~task_canceled() throw() { }
 
-    const char* what() const CPPREST_NOEXCEPT { return _message.c_str(); }
+    const char* what() const CPPREST_NOEXCEPT override { return _message.c_str(); }
 };
 
 /// <summary>
@@ -89,17 +89,17 @@ public:
     ///     A descriptive message of the error.
     /// </param>
     /**/
-    invalid_operation(_In_z_ const char* _Message) throw() : _message(_Message) {}
+    invalid_operation(_In_z_ const char* _Message) throw() : _message(_Message) { }
 
     /// <summary>
     ///     Constructs an <c>invalid_operation</c> object.
     /// </summary>
     /**/
-    invalid_operation() throw() : exception() {}
+    invalid_operation() throw() : exception() { }
 
-    ~invalid_operation() throw() {}
+    ~invalid_operation() throw() { }
 
-    const char* what() const CPPREST_NOEXCEPT { return _message.c_str(); }
+    const char* what() const CPPREST_NOEXCEPT override { return _message.c_str(); }
 };
 
 namespace details
@@ -203,10 +203,10 @@ template<typename _Function>
 class _CancellationTokenCallback : public _CancellationTokenRegistration
 {
 public:
-    _CancellationTokenCallback(const _Function& _Func) : _M_function(_Func) {}
+    _CancellationTokenCallback(const _Function& _Func) : _M_function(_Func) { }
 
 protected:
-    virtual void _Exec() { _M_function(); }
+    virtual void _Exec() override { _M_function(); }
 
 private:
     _Function _M_function;
@@ -221,7 +221,7 @@ public:
     }
 
 protected:
-    virtual void _Exec() { m_proc(m_pData); }
+    virtual void _Exec() override { m_proc(m_pData); }
 
 private:
     TaskProc_t m_proc;
@@ -242,7 +242,7 @@ protected:
         } Node;
 
     public:
-        TokenRegistrationContainer() : _M_begin(nullptr), _M_last(nullptr) {}
+        TokenRegistrationContainer() : _M_begin(nullptr), _M_last(nullptr) { }
 
         ~TokenRegistrationContainer()
         {
@@ -349,7 +349,7 @@ public:
 
     static bool _IsValid(_In_opt_ _CancellationTokenState* _PToken) { return (_PToken != NULL && _PToken != _None()); }
 
-    _CancellationTokenState() : _M_stateFlag(0) {}
+    _CancellationTokenState() : _M_stateFlag(0) { }
 
     ~_CancellationTokenState()
     {
@@ -521,7 +521,7 @@ class cancellation_token;
 class cancellation_token_registration
 {
 public:
-    cancellation_token_registration() : _M_pRegistration(NULL) {}
+    cancellation_token_registration() : _M_pRegistration(NULL) { }
 
     ~cancellation_token_registration() { _Clear(); }
 
@@ -742,7 +742,7 @@ private:
         _Impl = NULL;
     }
 
-    cancellation_token() : _M_Impl(NULL) {}
+    cancellation_token() : _M_Impl(NULL) { }
 
     cancellation_token(_ImplType _Impl) : _M_Impl(_Impl)
     {

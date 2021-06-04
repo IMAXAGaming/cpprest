@@ -553,7 +553,7 @@ uri::uri(const details::uri_components& components) : m_components(components)
     }
 }
 
-uri::uri(const utility::string_t& uri_string) : uri(uri_string.c_str()) {}
+uri::uri(const utility::string_t& uri_string) : uri(uri_string.c_str()) { }
 
 uri::uri(const utility::char_t* uri_string)
 {

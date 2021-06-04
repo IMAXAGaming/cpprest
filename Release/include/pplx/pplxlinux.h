@@ -20,14 +20,12 @@
 #ifndef _WIN32
 
 #include "cpprest/details/cpprest_compat.h"
+#include "pplx/pplxinterface.h"
 #include "pthread.h"
-#include <signal.h>
-
 #include <atomic>
 #include <condition_variable>
 #include <mutex>
-
-#include "pplx/pplxinterface.h"
+#include <signal.h>
 
 namespace pplx
 {
@@ -64,7 +62,7 @@ private:
 public:
     static const unsigned int timeout_infinite = 0xFFFFFFFF;
 
-    event_impl() : _signaled(false) {}
+    event_impl() : _signaled(false) { }
 
     void set()
     {
@@ -145,7 +143,7 @@ public:
 class recursive_lock_impl
 {
 public:
-    recursive_lock_impl() : _M_owner(-1), _M_recursionCount(0) {}
+    recursive_lock_impl() : _M_owner(-1), _M_recursionCount(0) { }
 
     ~recursive_lock_impl()
     {
@@ -196,11 +194,11 @@ class linux_scheduler : public pplx::scheduler_interface
 #endif
 {
 public:
-    _PPLXIMP virtual void schedule(TaskProc_t proc, _In_ void* param);
+    _PPLXIMP virtual void schedule(TaskProc_t proc, _In_ void* param) override;
 #if defined(__APPLE__)
-    virtual ~apple_scheduler() {}
+    virtual ~apple_scheduler() { }
 #else
-    virtual ~linux_scheduler() {}
+    virtual ~linux_scheduler() { }
 #endif
 };
 
